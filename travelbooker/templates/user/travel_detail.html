@@ -1,0 +1,20 @@
+{% extends 'user/base.html' %}
+{% block content %}
+<h3>{{ travel.travel_type }}: {{ travel.source }} → {{ travel.destination }}</h3>
+<p>Date & Time: {{ travel.datetime }}</p>
+<p>Price per seat: ₹{{ travel.price }}</p>
+<p>Available seats: {{ travel.available_seats }}</p>
+
+{% if user.is_authenticated %}
+<form method="post" action="{% url 'book_travel' travel.pk %}">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label>Number of seats</label>
+    <input name="num_seats" type="number" min="1" max="{{ travel.available_seats }}" value="1" class="form-control" required>
+  </div>
+  <button class="btn btn-success">Confirm Booking</button>
+</form>
+{% else %}
+<p><a href="{% url 'login' %}">Login</a> to book.</p>
+{% endif %}
+{% endblock %}

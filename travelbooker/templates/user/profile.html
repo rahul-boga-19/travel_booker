@@ -1,0 +1,25 @@
+{% extends 'user/base.html' %}
+{% block content %}
+<h3>Profile</h3>
+<form method="post">{% csrf_token %}
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label>First name</label>
+      <input name="first_name" class="form-control" value="{{ request.user.first_name }}">
+    </div>
+    <div class="col-md-6 mb-3">
+      <label>Last name</label>
+      <input name="last_name" class="form-control" value="{{ request.user.last_name }}">
+    </div>
+  </div>
+  <div class="mb-3">
+    <label>Phone</label>
+    <input name="phone" class="form-control" value="{{ profile.phone }}">
+  </div>
+  <div class="mb-3">
+    <label>Address</label>
+    <textarea name="address" class="form-control">{{ profile.address }}</textarea>
+  </div>
+  <button class="btn btn-success">Save</button>
+</form>
+{% endblock %}

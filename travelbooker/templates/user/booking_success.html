@@ -1,0 +1,9 @@
+{% extends 'user/base.html' %}
+{% block content %}
+<h3>Booking Confirmed</h3>
+<p>Booking ID: {{ booking.booking_id }}</p>
+<p>Travel: {{ booking.travel_option }}</p>
+<p>Seats: {{ booking.num_seats }}</p>
+<p>Total: ₹{{ booking.total_price }}</p>
+<a class="btn btn-primary" href="{% url 'my_bookings' %}">View My Bookings</a>
+{% endblock %}

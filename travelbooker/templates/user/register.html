@@ -1,0 +1,33 @@
+{% extends 'user/base.html' %}
+{% block content %}
+<h3>Register</h3>
+<form method="post">{% csrf_token %}
+  <div class="mb-3">
+    <label>Username</label>
+    <input name="username" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label>Email</label>
+    <input name="email" type="email" class="form-control" required>
+  </div>
+   <div class="mb-3">
+    <label>address</label>
+<textarea name="address" id="address" required></textarea>
+  </div>
+   <div class="mb-3">
+    <label>phone</label>
+    <input name="phone" type="text" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label>Password</label>
+    <input name="password" type="password" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label>Confirm Password</label>
+    <input name="password2" type="password" class="form-control" required>
+  </div>
+  <button class="btn btn-success">Register</button>
+  <br>
+  <a href="{% url 'login' %}">already have account ?</a>
+</form>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'user/base.html' %}
+{% block content %}
+<h3>Travel Options</h3>
+
+<form class="row g-2 mb-3" method="get">
+  <div class="col-md-2">
+    <select class="form-select" name="type">
+      <option value="">All Types</option>
+      <option value="Flight">Flight</option>
+      <option value="Train">Train</option>
+      <option value="Bus">Bus</option>
+    </select>
+  </div>
+  <div class="col-md-2"><input name="source" class="form-control" placeholder="Source"></div>
+  <div class="col-md-2"><input name="destination" class="form-control" placeholder="Destination"></div>
+  <div class="col-md-2"><input name="date" class="form-control" placeholder="YYYY-MM-DD"></div>
+  <div class="col-md-2"><button class="btn btn-primary">Filter</button></div>
+</form>
+
+{% for t in travels %}
+  <div class="card mb-2">
+    <div class="card-body">
+      <h5>{{ t.travel_type }}: {{ t.source }} → {{ t.destination }}</h5>
+      <p>{{ t.datetime }} | ₹{{ t.price }} | Seats: {{ t.available_seats }}</p>
+      <a href="{% url 'travel_detail' t.pk %}" class="btn btn-primary">View & Book</a>
+    </div>
+  </div>
+{% empty %}
+  <p>No travels.</p>
+{% endfor %}
+{% endblock %}
