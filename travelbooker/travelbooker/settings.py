@@ -1,25 +1,25 @@
 """
-Django settings for travelbooker project on PythonAnywhere
+Django settings for travelbooker project (Render + MySQL)
 """
 
 from pathlib import Path
 import os
+from django.core.management.utils import get_random_secret_key
+import dj_database_url  # pip install dj-database-url
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# SECRET KEY
+SECRET_KEY = os.environ.get("SECRET_KEY", get_random_secret_key())
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ')9qtzfctt+!ihbv^#_lv!2$2*j78i5lqtb8xkb$ma9_&c(s&g*'
+# DEBUG mode
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True   # set False in production
-
-ALLOWED_HOSTS = ['rahulboga.pythonanywhere.com', '127.0.0.1', 'localhost']
-
+# Hosts
+ALLOWED_HOSTS = ["*"]  # Render manages domains
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -27,10 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'user',
-
-    # your apps
-
+    'user',  # your app
 ]
 
 MIDDLEWARE = [
@@ -63,62 +60,38 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'travelbooker.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-
+# Database (MySQL via Render environment variables)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'rahulboga$TravelBooker',
-        'USER': 'rahulboga',   # <- check this in your dashboard
-        'PASSWORD': 'jayshreeram22@',  # the one you set in PythonAnywhere
-        'HOST': 'rahulboga.mysql.pythonanywhere-services.com',
-        'PORT': '3306',
+        'NAME': os.environ.get("DB_NAME", "travelbooker"),
+        'USER': os.environ.get("DB_USER", "root"),
+        'PASSWORD': os.environ.get("DB_PASSWORD", ""),
+        'HOST': os.environ.get("DB_HOST", "localhost"),
+        'PORT': os.environ.get("DB_PORT", "3306"),
     }
 }
 
-
-
 # Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
 ]
 
-
 # Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'Asia/Kolkata'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-
+# Static files
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+# Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media"
 
