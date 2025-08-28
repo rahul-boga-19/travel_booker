@@ -72,7 +72,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'rahulboga$TravelBooker',
-        'USER': 'rahulboga$rahulboga',   # <- check this in your dashboard
+        'USER': 'rahulboga',   # <- check this in your dashboard
         'PASSWORD': 'jayshreeram22@',  # the one you set in PythonAnywhere
         'HOST': 'rahulboga.mysql.pythonanywhere-services.com',
         'PORT': '3306',
